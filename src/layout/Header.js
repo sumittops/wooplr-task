@@ -63,11 +63,6 @@ const Header = ({ classes, colors, sizes, visibilityFilter, dispatch, ...props})
         label: `${size}(${sizes[size].length})`,
         value: size
     }))
-    if (visibilityFilter === byPage) {
-        console.log(this.colorFilter);
-        // this.colorFilter.props.reset();
-        // this.colorFilter && this.colorFilter.reset();
-    }
     const handleColorSelect = (item) => {
         dispatch(setVisibilityFilter(byPage)) 
         if (item && item.value) {

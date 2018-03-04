@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto|Material+Icons');
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+.container {
+  width: 100%;  
+}
+.pointer {
+  cursor: pointer;
+}
+.material-icons.md-14 {
+    font-size: 14px;
+}
+.text-center {
+  text-align: center;
+}

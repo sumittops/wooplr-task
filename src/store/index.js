@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
-import productsReducer from './products';
-import appStateRedcuer from './appState';
+import productsReducer from './reducers/products';
+import appStateRedcuer from './reducers/appState';
 
 const middleware = applyMiddleware(thunk);
 

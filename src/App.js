@@ -6,7 +6,7 @@ import Header from './layout/Header';
 import Main from './layout/Main';
 import ProductDetail from './components/ProductDetail';
 import debounce from 'lodash/debounce';
-import { loadNextPage } from './store/appState';
+import { loadNextPage } from './store/actions';
 class App extends Component {
   
   constructor(){

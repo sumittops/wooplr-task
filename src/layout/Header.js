@@ -3,7 +3,7 @@ import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
 
 import Dropdown from '../components/Dropdown';
-import { setVisibilityFilter } from '../store/appState';
+import { setVisibilityFilter, toggleGridSize } from '../store/actions';
 const style = theme => ({
     root: {
         display: 'flex',
@@ -51,7 +51,7 @@ const style = theme => ({
     }
 });
 
-const Header = ({ classes, colors, sizes, visibilityFilter, dispatch, ...props}) => {
+const Header = ({ classes, colors, sizes, visibilityFilter, gridCompact, dispatch, ...props}) => {
     colors = colors || {};
     sizes = sizes || {};
     const byPage = 'byPage', bySize = 'bySize', byColor = 'byColor'
@@ -75,15 +75,21 @@ const Header = ({ classes, colors, sizes, visibilityFilter, dispatch, ...props})
             dispatch(setVisibilityFilter(bySize, item.value))
         }   
     };
+    const handleShowAll = event => {
+        event.stopPropagation();
+        dispatch(setVisibilityFilter(byPage));
+    };
+    const handleGridToggle = () => dispatch(toggleGridSize());
     return (
         <div className={classes.root}>
             <div className={classes.title}>Wooplr</div>
             <div className={classes.flex}></div>
             <div className={classes.actions}>
-                { visibilityFilter !== byPage && <button onClick={(event) => {
-                        event.stopPropagation();
-                        dispatch(setVisibilityFilter(byPage));
-                    }} className={classes.button}>Show All</button>}
+                <button className={classes.button} onClick={handleGridToggle}>
+                    <i className="material-icons">view_module</i>
+                    { gridCompact ? <i className="material-icons md-16">looks_3</i> : <i className="material-icons md-16">looks_4</i>  }
+                </button>
+                { visibilityFilter !== byPage && <button onClick={handleShowAll} className={classes.button}>Show All</button>}
                 { visibilityFilter !== bySize && <Dropdown data={colorData} ref={node => this.colorFilter = node } label="All Colors" 
                     onItemSelect={handleColorSelect} /> }
                 { visibilityFilter !== byColor && <Dropdown ref={node => this.sizeFilter = node }  data={sizeData} label="All Sizes" 
@@ -95,6 +101,7 @@ const Header = ({ classes, colors, sizes, visibilityFilter, dispatch, ...props})
 const mapStateToProps = (state, ownProps) => ({
     colors: state.products.byColor,
     sizes: state.products.bySize,
-    visibilityFilter: state.appState.visibilityFilter
+    visibilityFilter: state.appState.visibilityFilter,
+    gridCompact: state.appState.gridCompact
 });
 export default connect(mapStateToProps)(injectSheet(style)(Header));

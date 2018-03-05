@@ -1,28 +1,9 @@
-import { getProducts } from '../services/Utils';
-import uniq from 'lodash/uniq'
-const PRODUCT_REQUEST_START = 'PRODUCT_REQUEST_START';
-const PRODUCT_REQUEST_FINISHED = 'PRODUCT_REQUEST_FINISHED';
-const PRODUCT_REQUEST_ERROR = 'PRODUCT_REQUEST_ERROR';
-
-export const loadProductsByPage = (page) => dispatch => {
-    dispatch({
-        type: PRODUCT_REQUEST_START,
-        page
-    });
-    getProducts(page)
-        .then(data => {
-            dispatch({
-                type: PRODUCT_REQUEST_FINISHED,
-                data 
-            });
-
-        }).catch(err => {
-            dispatch({
-                type: PRODUCT_REQUEST_ERROR,
-                page
-            });
-        })
-};
+import uniq from 'lodash/uniq';
+import {
+    PRODUCT_REQUEST_START,
+    PRODUCT_REQUEST_ERROR,
+    PRODUCT_REQUEST_FINISHED
+} from '../constants';
 const initState = {
     byPage: {},
     byId: {},

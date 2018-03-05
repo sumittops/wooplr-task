@@ -1,24 +1,16 @@
-const NEXT_PAGE = 'NEXT_PAGE';
-const TOGGLE_PRODUCT_DETAIL = 'TOGGLE_PRODUCT_DETAIL';
-const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
+import {
+    NEXT_PAGE,
+    TOGGLE_PRODUCT_DETAIL,
+    SET_VISIBILITY_FILTER,
+    TOGGLE_GRID_SIZE
+} from '../constants';
 
-export const loadNextPage = () => ({
-    type: NEXT_PAGE
-})
-export const toggleProductDetail = (product) => ({
-    type: TOGGLE_PRODUCT_DETAIL,
-    product
-});
-export const setVisibilityFilter = (filter, value) => ({
-    type: SET_VISIBILITY_FILTER,
-    filter, 
-    value
-});
 const initState = {
     currentPage: 1,
     selectedProduct: null,
     visibilityFilter: 'byPage',
-    filterValue: null
+    filterValue: null,
+    gridCompact: true
 }
 export default  (state = initState, action)  => {
     switch(action.type) {
@@ -28,6 +20,8 @@ export default  (state = initState, action)  => {
             return { ...state, selectedProduct: action.product || null };
         case SET_VISIBILITY_FILTER: 
             return { ...state, visibilityFilter: action.filter, filterValue: action.value || null };
+        case TOGGLE_GRID_SIZE: 
+            return { ...state, gridCompact: !state.gridCompact}
         default: 
             return state;
     }

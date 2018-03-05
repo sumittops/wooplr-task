@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import uniq from 'lodash/uniq';
 import ProductCard from './ProductCard';
-import { loadProductsByPage } from '../store/products';
-import { toggleProductDetail  } from '../store/appState';
+import { loadProductsByPage } from '../store/actions';
+import { toggleProductDetail  } from '../store/actions';
 
 const ProductGrid = (props) => {
-    const { currentPage, productMap, dispatch, isLoading, visibilityFilter, filterValue } = props;
+    const { currentPage, productMap, dispatch, isLoading, visibilityFilter, filterValue, gridCompact } = props;
     let productElems = [], src;
     const openProduct = (productId) => dispatch(toggleProductDetail(productId));
     if(visibilityFilter === 'byPage' && !props[visibilityFilter][currentPage]) {
@@ -17,8 +17,9 @@ const ProductGrid = (props) => {
     } else 
         src = props[visibilityFilter][filterValue];
     const productIds =  uniq(src);
+    const gridClass = gridCompact ? 'col-xs-12 col-sm-4 col-md-3' : 'col-xs-12 col-sm-6 col-md-4'
     productElems = productIds.map(productId => (
-        <div key={productId} className="col-xs-12 col-sm-6 col-md-4">
+        <div key={productId} className={gridClass}>
             <ProductCard  onClick={() => openProduct(productId)}  product={productMap[productId]} />
         </div>
     ));
@@ -40,6 +41,7 @@ const mapStateToProps = (state, ownProps) => ({
     currentPage: state.appState.currentPage,
     visibilityFilter: state.appState.visibilityFilter,
     filterValue: state.appState.filterValue,
+    gridCompact: state.appState.gridCompact,
     isLoading: state.products.fetching
 });
 export default connect(mapStateToProps)(ProductGrid);

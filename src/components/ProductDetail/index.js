@@ -1,7 +1,7 @@
 import React from 'react';
 import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
-import { toggleProductDetail  } from '../../store/appState';
+import { toggleProductDetail  } from '../../store/actions';
 import { imageBaseUrl, webLinkBaseUrl } from '../../services/configs';
 import styles from './styles';
 import Carousel from '../Carousel';

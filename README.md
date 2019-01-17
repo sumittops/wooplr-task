@@ -16,6 +16,6 @@ But you don't need to use this tool. For setup, follow the steps:
     `npm install`
 * To start development server
     `npm start`
-* To build for prouction
+* To build for production
     `npm run build`
 
